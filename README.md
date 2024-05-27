@@ -1,30 +1,6 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Esta aplicação consiste em uma API para gerenciar produtos, usuários e carrinhos de compras em um sistema de e-commerce. Foi utilizado Nest.JS e Prisma.
 
 ## Installation
 
@@ -45,6 +21,83 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+
+# Estrutura de Rotas
+Módulo de Produtos (products/)
+  
+ @Post /products:
+  
+    Criar produtos, recebendo no body da requisição as informações associadas ao produto (nome, descrição (opcional) e preço).
+  
+  @Get /products :
+    
+    Receber uma lista de todos os produtos cadastrados.
+  
+  @Get /products/by-ids?ids=id1,id2,id3:
+    
+    Retornar um ou mais produtos especificados pelos seus ids.
+  
+  @Get /products/search/:palavrachave :
+    
+    Procurar produtos que correspondem a uma palavra chave.
+  
+  @Put /products/:id : 
+
+    Atualizar as informações de um produto, recebendo seu id na URL e enviando um body com as informações atualizadas.
+  
+  @Delete /products/:id:
+
+
+    Deletar um produto de determinado id.
+
+
+## Módulo de Usuários (user/)
+  @Post /user:
+
+    Adicionar usuários, recebendo no body suas informações (nome (opcional) e e-mail (único)).
+  
+  @Get /user:
+
+    Receber uma lista com todos os usuários cadastrados.
+  
+  @Put /user/:id: 
+    
+    Atualizar as informações de um usuário, recebendo seu id na URL e enviando um body com as informações atualizadas.
+  
+  @Delete /user/:id:
+
+    Deletar um usuário de determinado id.
+
+
+## Módulo de Carrinho de Compras (shopping-cart/)
+
+  @Post /shopping-cart/add
+  Receber no body um userId e um productId e:
+    
+    Se não houver um carrinho associado ao usuário: criar o carrinho e adicionar o produto.
+    Se já houver um carrinho: simplesmente adicionar o produto ao carrinho do usuário.
+  
+  @Get /shopping-cart/:userId:
+
+    Listar todos os produtos que estão no carrinho do usuário.
+  
+  @Post /shopping-cart/remove
+  Receber no body um userId e um productId e:
+    
+    Se houver mais de 1 unidade do produto no carrinho: decrementar essa quantidade em 1.
+    Se houver exatamente 1 unidade do produto no carrinho: remover esse item do carrinho.
+  
+  @Post /shopping-cart/:userId/buy:
+
+    Receber um id de usuário e finalizar a compra do carrinho, retornando a lista de produtos comprados e o preço final.
+  
+  @Delete /shopping-cart/:userId/clear:
+    
+    Receber um id de usuário e remover todos os produtos do carrinho, retornando uma mensagem de confirmação.
+
+
+
+
 ## Test
 
 ```bash
@@ -57,17 +110,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
