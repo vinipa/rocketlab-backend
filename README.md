@@ -94,19 +94,3 @@ Módulo de Produtos (products/)
   @Delete /shopping-cart/:userId/clear:
     
     Receber um id de usuário e remover todos os produtos do carrinho, retornando uma mensagem de confirmação.
-
-
-
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
